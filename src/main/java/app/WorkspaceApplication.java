@@ -47,6 +47,6 @@ public class WorkspaceApplication extends Application<WorkspaceConfiguration> {
         environment.jersey().register(resource);
 
         // TODO This is the app entry point. You can do what you like starting from here.
-        // For example use workspaceClient to post a message to a space by its id.
+        // For example send a graphql request to make a space, and then use workspaceClient to post a message to a space by its id.
     }
 }
