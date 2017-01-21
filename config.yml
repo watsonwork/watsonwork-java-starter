@@ -1,0 +1,19 @@
+workspaceApiUrl: https://api.watsonwork.ibm.com
+
+# Your values here
+appId: 72ab0c67-a20a-45d4-b108-2c45247a262b
+appSecret: afrdy6198nvhe13m41mgeuare10gbnrj
+webhookSecret: YOUR_WEBHOOK_SECRET
+
+#Server config, specifies port and uses self-signed keystore
+server:
+    applicationConnectors:
+        - type: http
+          port: 8080
+#        - type: https
+#          port: 8443
+#          keyStorePath: skeleton.keystore
+#          keyStorePassword: skeleton
+#          validateCerts: false
+## trustStorePath is only necessary on macos, replace JAVA_HOME with your own java home
+##          trustStorePath: JAVA_HOME/jre/lib/security/cacerts

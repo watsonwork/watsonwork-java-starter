@@ -1,0 +1,37 @@
+apply plugin: 'application'
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile "com.google.code.gson:gson:$GSON_VERSION"
+  compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+  compile "com.squareup.retrofit2:converter-jackson:$RETROFIT_VERSION"
+  compile "io.dropwizard:dropwizard-core:$DROPWIZARD_VERSION"
+  compile "io.dropwizard:dropwizard-assets:$DROPWIZARD_VERSION"
+  compile "com.squareup.okhttp3:logging-interceptor:$LOGGINGINTERCEPTOR_VERSION"
+}
+
+distributions {
+  main {
+    contents {
+      from { "config.yml" }
+    }
+  }
+}
+
+mainClassName = 'app.WorkspaceApplication server "`dirname $0`/../config.yml"'
+
+run {
+  args 'server', 'config.yml'
+  main = 'app.WorkspaceApplication'
+}
+
+task processManifest(type: Copy) {
+  from 'src/main/resources/manifest.yml'
+  into rootDir
+  filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [APP_NAME: rootProject.name])
+}
+
+build.dependsOn processManifest
