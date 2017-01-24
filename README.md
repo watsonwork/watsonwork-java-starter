@@ -39,8 +39,10 @@ You can see this app:
 2. Sign up for a free trial on [Bluemix](https://console.ng.bluemix.net) and create an app.
 3. Download and install the [Bluemix cli](http://clis.ng.bluemix.net/ui/home.html) as well as the [Cloud Foundry cli](https://github.com/cloudfoundry/cli/releases)
 4. Run `bluemix login -a https://api.ng.bluemix.net`, and enter your email and password when prompted
-5. Run `./gradlew clean build` on linux/mac or `gradlew clean build` on windows
-6. Run `cf push`
+5. Run `./gradlew clean build` on linux/mac or `gradlew clean build` on windows. This will generate a file called `manifest.yml` in the root folder of your app, containing some default settings to be used when uploading to bluemix.
+6. Run `cf push my-app-name`, where `my-app-name` is what you'd like to call your app on bluemix. 
+**Tip:** Make sure the name you want to use is not taken on Bluemix already, since it must be unique.
+**Tip:** Because of the`manifest.yml` file, if you just type `cf push`, the name of your project folder will be used as the app name on bluemix. To make use of this you need to change the name of the project folder from `watsonwork-java-starter` to `my-app-name` and run the command in step 5 again.
 7. When it's finished pushing to bluemix, visit your app's url.
 
 ### Set up a Webhook
