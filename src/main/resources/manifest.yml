@@ -1,0 +1,12 @@
+applications:
+- path: build/distributions/@APP_NAME@.zip
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: @APP_NAME@
+  host: @APP_NAME@
+  disk_quota: 1024M
+  services:
+  - availability-monitoring-auto
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+  stack: cflinuxfs2
