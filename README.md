@@ -46,15 +46,14 @@ You can see this app:
 7. When it's finished pushing to bluemix, visit your app's url.
 
 ### Set up a Webhook
-This can only be done if you have the app set up on a public address, you can use bluemix for this: [Run on Bluemix](#run-on-bluemix), or port forwarding if you control the wifi router.
+This can only be done if you have the app set up on a public address, you can use bluemix for this, see [Run on Bluemix](#run-on-bluemix), or port forwarding if you control the wifi router.
 
 1. Go back to the [app creation page](https://workspace.ibm.com/developer/apps) and edit your app.
 2. Click on **Add an outbound webhook** and give it a name. The callback url should be your app's public base url followed by `/webhook`, for example `https://watsonwork-java-starter.mybluemix.net/webhook`. Tick the `message-created` event. Do not tick the enable checbox yet, because your app needs to know the webhook secret in order to respond to a verification request from the `Workspaces` server.
 3. Click the save button and take note of the **webhook secret**.
 4. Go back to your **config.yml** in the local project, and fill in the value for **webhookSecret**.
-5. On linux/macos run `./gradlew clean build`, on windows run `gradlew clean build`.
-6. Run `cf push`.
-7. When the app is finished pushing to bluemix, go back to the [app creation page](https://workspace.ibm.com/developer/apps) one last time, edit your app and enable the webhook. Click save. Your app will now receive webhook events of the types you asked for.
-8. Go to workspaces and select the space you want to add the app to. Click the dropdown at the top of the page where its name is, and then click the **Apps** section. You will see your app here.
-9. Hover over your app and click **Add to space**.
-10. Post a message in your space and watch your app respond.
+5. Push to bluemix by following steps 4-6 in [Run on Bluemix](#run-on-bluemix)
+6. When the app is finished pushing to bluemix, go back to the [app creation page](https://workspace.ibm.com/developer/apps) one last time, edit your app and enable the webhook. Click save. Your app will now receive webhook events of the types you asked for.
+7. Go to workspaces and select the space you want to add the app to. Click the dropdown at the top of the page where its name is, and then click the **Apps** section. You will see your app here.
+8. Hover over your app and click **Add to space**.
+9. Post a message in your space and watch your app respond.
