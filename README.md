@@ -40,7 +40,7 @@ You can see this app:
 3. [Install the Cloud Foundry cli](https://github.com/cloudfoundry/cli/releases) and then [Install the Bluemix cli](http://clis.ng.bluemix.net/ui/home.html). On Windows, be sure to add the bluemix cli to your PATH.
 4. Run `bluemix login -a https://api.ng.bluemix.net`, and enter your email and password when prompted
 5. Run `./gradlew clean build` on linux/mac or `gradlew clean build` on windows. This will generate a file called `manifest.yml` in the root folder of your app, containing some default settings to be used when uploading to bluemix.
-6. Run `cf push my-app-name`, where `my-app-name` is what you'd like to call your app on bluemix. 
+6. Run `cf push my-app-name --hostname my-host-name`, where `my-app-name` is what you'd like to call your app on bluemix, and `my-host-name` is the host you want to use on bluemix (i.e. if you use `my-host-name`, your app will be hosted at `https://my-host-name.mybluemix.net`). 
 
     **Tip:** Make sure the name you want to use is not taken on Bluemix already, since it must be unique.
     
