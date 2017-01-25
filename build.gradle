@@ -28,10 +28,14 @@ run {
   main = 'app.WorkspaceApplication'
 }
 
-task processManifest(type: Copy) {
-  from 'src/main/resources/manifest.yml'
-  into rootDir
-  filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [APP_NAME: rootProject.name])
+task processManifest {
+  doLast{
+    copy{
+      from 'src/main/resources/manifest.yml'
+      into rootDir
+      filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: [APP_NAME: rootProject.name])
+    }
+  }
 }
 
 build.dependsOn processManifest
