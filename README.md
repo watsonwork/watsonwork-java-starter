@@ -37,7 +37,7 @@ You can see this app:
 ### Run on Bluemix
 1. Follow steps 1-5 in [Run Locally](#run-locally)
 2. Sign up for a free trial on [Bluemix](https://console.ng.bluemix.net) and create an app.
-3. Download and install the [Bluemix cli](http://clis.ng.bluemix.net/ui/home.html) as well as the [Cloud Foundry cli](https://github.com/cloudfoundry/cli/releases)
+3. [Install the Cloud Foundry cli](https://github.com/cloudfoundry/cli/releases) and then [Install the Bluemix cli](http://clis.ng.bluemix.net/ui/home.html). On Windows, be sure to add the bluemix cli to your PATH.
 4. Run `bluemix login -a https://api.ng.bluemix.net`, and enter your email and password when prompted
 5. Run `./gradlew clean build` on linux/mac or `gradlew clean build` on windows. This will generate a file called `manifest.yml` in the root folder of your app, containing some default settings to be used when uploading to bluemix.
 6. Run `cf push my-app-name`, where `my-app-name` is what you'd like to call your app on bluemix. 
