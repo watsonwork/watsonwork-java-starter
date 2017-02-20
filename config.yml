@@ -15,5 +15,5 @@ server:
 #          keyStorePath: skeleton.keystore
 #          keyStorePassword: skeleton
 #          validateCerts: false
-## trustStorePath is only necessary on macos, replace JAVA_HOME with your own java home
+## # trustStorePath may be necessary if you get 'InvalidAlgorithmParameterException' with the settings above, uncomment and replace JAVA_HOME with your own java home
 ##          trustStorePath: JAVA_HOME/jre/lib/security/cacerts
