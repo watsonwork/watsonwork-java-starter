@@ -1,6 +1,6 @@
 package app;
 
-import app.resources.WorkspaceResource;
+import app.resources.WorkServicesResource;
 import app.workspace.WorkspaceClient;
 import app.workspace.WorkspaceService;
 import app.workspace.auth.AuthManager;
@@ -14,9 +14,9 @@ import io.dropwizard.setup.Environment;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class WorkspaceApplication extends Application<WorkspaceConfiguration> {
+public class WorkServicesApplication extends Application<WorkServicesConfiguration> {
     public static void main(String[] args) throws Exception {
-        new WorkspaceApplication().run(args);
+        new WorkServicesApplication().run(args);
     }
 
     @Override
@@ -25,12 +25,12 @@ public class WorkspaceApplication extends Application<WorkspaceConfiguration> {
     }
 
     @Override
-    public void initialize(Bootstrap<WorkspaceConfiguration> bootstrap) {
+    public void initialize(Bootstrap<WorkServicesConfiguration> bootstrap) {
         bootstrap.addBundle(new AssetsBundle("/vendor"));
     }
 
     @Override
-    public void run(WorkspaceConfiguration config,
+    public void run(WorkServicesConfiguration config,
             Environment environment) {
         ObjectMapper mapper = environment.getObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -43,7 +43,7 @@ public class WorkspaceApplication extends Application<WorkspaceConfiguration> {
         WorkspaceClient workspaceClient = new WorkspaceClient(workspaceService, authManager);
 
         //register jax-rs resources
-        final WorkspaceResource resource = new WorkspaceResource(workspaceClient, authManager);
+        final WorkServicesResource resource = new WorkServicesResource(workspaceClient, authManager);
         environment.jersey().register(resource);
 
         // TODO This is the app entry point. You can do what you like starting from here.

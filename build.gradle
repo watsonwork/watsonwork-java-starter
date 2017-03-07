@@ -21,11 +21,11 @@ distributions {
   }
 }
 
-mainClassName = 'app.WorkspaceApplication server "`dirname $0`/../config.yml"'
+mainClassName = 'app.WorkServicesApplication server "`dirname $0`/../config.yml"'
 
 run {
   args 'server', 'config.yml'
-  main = 'app.WorkspaceApplication'
+  main = 'app.WorkServicesApplication'
 }
 
 task processManifest {

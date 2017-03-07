@@ -36,14 +36,14 @@ import retrofit2.http.Body;
 
 @Path("")
 @Produces(MediaType.APPLICATION_JSON)
-public class WorkspaceResource {
+public class WorkServicesResource {
 
     @Context
     private UriInfo uriInfo;
     private WorkspaceClient workspaceClient;
     private AuthManager authManager;
 
-    public WorkspaceResource(WorkspaceClient workspaceClient, AuthManager authManager) {
+    public WorkServicesResource(WorkspaceClient workspaceClient, AuthManager authManager) {
         this.workspaceClient = workspaceClient;
         this.authManager = authManager;
     }
@@ -161,7 +161,7 @@ public class WorkspaceResource {
     }
 
     private String getUnauthenticatedPage() throws IOException {
-        String htmlTemplate = CharStreams.toString(new InputStreamReader(WorkspaceResource.class.getResourceAsStream("/unauthenticated.htm")));
+        String htmlTemplate = CharStreams.toString(new InputStreamReader(WorkServicesResource.class.getResourceAsStream("/unauthenticated.htm")));
 
         return htmlTemplate
                 .replace("@WORKSPACE_API_URL@", authManager.getWorkspaceApiUrl())
@@ -171,7 +171,7 @@ public class WorkspaceResource {
     }
 
     private String getAuthenticatedPage(OauthResponse oauthResponse) throws IOException {
-        String htmlTemplate = CharStreams.toString(new InputStreamReader(WorkspaceResource.class.getResourceAsStream("/authenticated.htm")));
+        String htmlTemplate = CharStreams.toString(new InputStreamReader(WorkServicesResource.class.getResourceAsStream("/authenticated.htm")));
 
         return htmlTemplate.replace("@DISPLAY_NAME@", oauthResponse.getDisplayName());
     }
