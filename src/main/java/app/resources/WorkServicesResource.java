@@ -33,6 +33,8 @@ import app.workspace.model.OauthResponse;
 import app.workspace.model.WebhookEvent;
 import com.google.common.io.CharStreams;
 import retrofit2.http.Body;
+import io.dropwizard.setup.Environment;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("")
 @Produces(MediaType.APPLICATION_JSON)
@@ -42,10 +44,11 @@ public class WorkServicesResource {
     private UriInfo uriInfo;
     private WorkspaceClient workspaceClient;
     private AuthManager authManager;
-
-    public WorkServicesResource(WorkspaceClient workspaceClient, AuthManager authManager) {
+    private Environment environment;
+    public WorkServicesResource(WorkspaceClient workspaceClient, AuthManager authManager, Environment environment) {
         this.workspaceClient = workspaceClient;
         this.authManager = authManager;
+		this.environment = environment;
     }
 
     /**
@@ -76,18 +79,36 @@ public class WorkServicesResource {
      * This method is the webhook callback. It will respond depending on the type of message.
      * <p>
      * If the type of message is 'verification', it hashes the response body and sends it back.
-     * It doesn't verify the input token because this is a sample app.
      * <p>
      * Put any logic which depends on a webhook event in here.
      *
-     * @param outboundToken A token apps should verify, this app doesn't.
-     * @param webhookEvent  contains information about the webhook, use this to decide how to react.
-     * @return Either a verification response or a 200 OK
+     * @param outboundToken Apps must verify, to ensure call is coming from a trusted source.
+     * @param webhookEventString  contains information about the webhook JSON, use this to decide how to react.
+     * @return Either a verification response or a starus code
      */
     @Path("webhook")
     @POST
     public Response webhookCallback(@HeaderParam("X-OUTBOUND-TOKEN") String outboundToken,
-            @Body WebhookEvent webhookEvent) throws NoSuchAlgorithmException, InvalidKeyException {
+            @Body String webhookEventString) throws NoSuchAlgorithmException, InvalidKeyException {
+
+
+        if(!verifyWebHookRequest(webhookEventString, outboundToken))
+        {
+            return Response.status(403).build();     // return a forbidden status
+        }
+
+        ObjectMapper mapper = environment.getObjectMapper();
+
+        WebhookEvent webhookEvent;
+        try
+        {
+            webhookEvent = mapper.readValue(webhookEventString, WebhookEvent.class);
+        }
+        catch(Exception e)
+        {
+            return Response.status(400).build();     // return a bad request status
+        }
+
         if ("verification".equalsIgnoreCase(webhookEvent.getType())) {
             return buildVerificationResponse(webhookEvent);
         }
@@ -185,6 +206,16 @@ public class WorkServicesResource {
                 .header("X-OUTBOUND-TOKEN", verificationHeader)
                 .build();
     }
+
+
+	private boolean verifyWebHookRequest(String body, String header)   throws NoSuchAlgorithmException, InvalidKeyException  {
+      String verification = createVerificationHeader(body);
+      if(verification.equals(header))
+          return true;
+      else
+          return false;
+    }
+
 
     private String createVerificationHeader(String responseBody) throws NoSuchAlgorithmException, InvalidKeyException {
         SecretKeySpec keySpec = new SecretKeySpec(authManager.getWebhookSecret().getBytes(StandardCharsets.UTF_8), "HmacSHA256");
