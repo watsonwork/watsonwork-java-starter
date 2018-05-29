@@ -43,7 +43,7 @@ public class WorkServicesApplication extends Application<WorkServicesConfigurati
         WorkspaceClient workspaceClient = new WorkspaceClient(workspaceService, authManager);
 
         //register jax-rs resources
-        final WorkServicesResource resource = new WorkServicesResource(workspaceClient, authManager);
+        final WorkServicesResource resource = new WorkServicesResource(workspaceClient, authManager, environment);
         environment.jersey().register(resource);
 
         // TODO This is the app entry point. You can do what you like starting from here.
