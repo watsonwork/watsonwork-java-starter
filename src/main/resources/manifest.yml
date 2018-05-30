@@ -8,7 +8,7 @@ applications:
   disk_quota: 1024M
   services:
   - availability-monitoring-auto
-  buildpack: https://github.com/fmoloney/java-buildpack.git
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
   stack: cflinuxfs2
   env:
     JAVA_OPTS: -Xms128m -Xmx512m
